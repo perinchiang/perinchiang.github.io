@@ -6,21 +6,50 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="shortcut icon" href="https://perinchiang.github.io/images/favicon.png" />
-<title>Moments | Patrick&#39;s Blog</title>
-<meta name="title" content="Moments" />
-<meta name="description" content="Love never dies
-The first day use static blog 2025/09/06" />
+<title>罗技键鼠在使用Synergy中的灵敏度问题 | Patrick&#39;s Blog</title>
+<meta name="title" content="罗技键鼠在使用Synergy中的灵敏度问题" />
+<meta name="description" content="设备清单
+
+mac电脑一台（作为主控端）
+windows电脑一台（作为被控端）
+logi master系列键鼠一套
+
+遇到的问题
+Synergu已经正常启用。mac作为主控设备，且关闭了logi flow情况下，在windows（被控端）使用鼠标明显慢很多，原因是罗技鼠标在mac上对鼠标有优化，到了windows处就变得不可识别，俗话讲就是鼠标加速没有了。因为主控权还是在mac端，所以只能通过修改mac端的鼠标速度来优化，修改windows端是没用的。
+
+备注：windows作为主控端时，没有发现这个问题
+解决方法
+即使是修改mac端的鼠标速度，两端的鼠标速度也会不一致，那此时只能借助logi flow来实现了，操作如下，两边都改成这样
+    
+    image
+
+实现的原理是，鼠标穿越的时候既能享受到synergy的毫秒级跨越，也能利用logi flow用上被控端的灵敏度，从而使得两端的灵敏度足够一致。也就是说，穿越到windows端时，logi flow就会用windows端的配置，此时两边鼠标的配置可以分别设置且不受影响。
+如果是罗技键盘可以把这个打开，防止自己误触键盘切换到被控端
+    
+    image
+
+‍
+‍
+‍" />
 <meta name="keywords" content="" />
 
-<link rel="canonical" href="https://perinchiang.github.io/monents/">
+<link rel="canonical" href="https://perinchiang.github.io/p/%E7%BD%97%E6%8A%80%E9%94%AE%E9%BC%A0%E5%9C%A8%E4%BD%BF%E7%94%A8synergy%E4%B8%AD%E7%9A%84%E7%81%B5%E6%95%8F%E5%BA%A6%E9%97%AE%E9%A2%98/">
 
 
-<meta property="og:url" content="https://perinchiang.github.io/monents/">
+<meta property="og:url" content="https://perinchiang.github.io/p/%E7%BD%97%E6%8A%80%E9%94%AE%E9%BC%A0%E5%9C%A8%E4%BD%BF%E7%94%A8synergy%E4%B8%AD%E7%9A%84%E7%81%B5%E6%95%8F%E5%BA%A6%E9%97%AE%E9%A2%98/">
   <meta property="og:site_name" content="Patrick&#39;s Blog">
-  <meta property="og:title" content="Moments">
-  <meta property="og:description" content="Love never dies The first day use static blog 2025/09/06">
+  <meta property="og:title" content="罗技键鼠在使用Synergy中的灵敏度问题">
+  <meta property="og:description" content="设备清单 mac电脑一台（作为主控端） windows电脑一台（作为被控端） logi master系列键鼠一套 遇到的问题 Synergu已经正常启用。mac作为主控设备，且关闭了logi flow情况下，在windows（被控端）使用鼠标明显慢很多，原因是罗技鼠标在mac上对鼠标有优化，到了windows处就变得不可识别，俗话讲就是鼠标加速没有了。因为主控权还是在mac端，所以只能通过修改mac端的鼠标速度来优化，修改windows端是没用的。
+备注：windows作为主控端时，没有发现这个问题
+解决方法 即使是修改mac端的鼠标速度，两端的鼠标速度也会不一致，那此时只能借助logi flow来实现了，操作如下，两边都改成这样 image 实现的原理是，鼠标穿越的时候既能享受到synergy的毫秒级跨越，也能利用logi flow用上被控端的灵敏度，从而使得两端的灵敏度足够一致。也就是说，穿越到windows端时，logi flow就会用windows端的配置，此时两边鼠标的配置可以分别设置且不受影响。
+如果是罗技键盘可以把这个打开，防止自己误触键盘切换到被控端 image ‍
+‍
+‍">
   <meta property="og:locale" content="en_US">
   <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2024-10-14T16:58:56+00:00">
+    <meta property="article:modified_time" content="2024-10-14T18:37:02+00:00">
     <meta property="og:image" content="https://perinchiang.github.io/images/share.png">
 
 
@@ -28,15 +57,27 @@ The first day use static blog 2025/09/06" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://perinchiang.github.io/images/share.png">
-  <meta name="twitter:title" content="Moments">
-  <meta name="twitter:description" content="Love never dies The first day use static blog 2025/09/06">
+  <meta name="twitter:title" content="罗技键鼠在使用Synergy中的灵敏度问题">
+  <meta name="twitter:description" content="设备清单 mac电脑一台（作为主控端） windows电脑一台（作为被控端） logi master系列键鼠一套 遇到的问题 Synergu已经正常启用。mac作为主控设备，且关闭了logi flow情况下，在windows（被控端）使用鼠标明显慢很多，原因是罗技鼠标在mac上对鼠标有优化，到了windows处就变得不可识别，俗话讲就是鼠标加速没有了。因为主控权还是在mac端，所以只能通过修改mac端的鼠标速度来优化，修改windows端是没用的。
+备注：windows作为主控端时，没有发现这个问题
+解决方法 即使是修改mac端的鼠标速度，两端的鼠标速度也会不一致，那此时只能借助logi flow来实现了，操作如下，两边都改成这样 image 实现的原理是，鼠标穿越的时候既能享受到synergy的毫秒级跨越，也能利用logi flow用上被控端的灵敏度，从而使得两端的灵敏度足够一致。也就是说，穿越到windows端时，logi flow就会用windows端的配置，此时两边鼠标的配置可以分别设置且不受影响。
+如果是罗技键盘可以把这个打开，防止自己误触键盘切换到被控端 image ‍
+‍
+‍">
 
 
 
 
-  <meta itemprop="name" content="Moments">
-  <meta itemprop="description" content="Love never dies The first day use static blog 2025/09/06">
-  <meta itemprop="wordCount" content="10">
+  <meta itemprop="name" content="罗技键鼠在使用Synergy中的灵敏度问题">
+  <meta itemprop="description" content="设备清单 mac电脑一台（作为主控端） windows电脑一台（作为被控端） logi master系列键鼠一套 遇到的问题 Synergu已经正常启用。mac作为主控设备，且关闭了logi flow情况下，在windows（被控端）使用鼠标明显慢很多，原因是罗技鼠标在mac上对鼠标有优化，到了windows处就变得不可识别，俗话讲就是鼠标加速没有了。因为主控权还是在mac端，所以只能通过修改mac端的鼠标速度来优化，修改windows端是没用的。
+备注：windows作为主控端时，没有发现这个问题
+解决方法 即使是修改mac端的鼠标速度，两端的鼠标速度也会不一致，那此时只能借助logi flow来实现了，操作如下，两边都改成这样 image 实现的原理是，鼠标穿越的时候既能享受到synergy的毫秒级跨越，也能利用logi flow用上被控端的灵敏度，从而使得两端的灵敏度足够一致。也就是说，穿越到windows端时，logi flow就会用windows端的配置，此时两边鼠标的配置可以分别设置且不受影响。
+如果是罗技键盘可以把这个打开，防止自己误触键盘切换到被控端 image ‍
+‍
+‍">
+  <meta itemprop="datePublished" content="2024-10-14T16:58:56+00:00">
+  <meta itemprop="dateModified" content="2024-10-14T18:37:02+00:00">
+  <meta itemprop="wordCount" content="21">
   <meta itemprop="image" content="https://perinchiang.github.io/images/share.png">
 <meta name="referrer" content="no-referrer-when-downgrade" />
 
@@ -431,10 +472,44 @@ The first day use static blog 2025/09/06" />
 </nav>
 </header>
   <main>
+
+
+<h1>罗技键鼠在使用Synergy中的灵敏度问题</h1>
+
+<p>
+  <i>
+    <time datetime='2024-10-14' pubdate>
+      14 Oct, 2024
+    </time>
+  </i>
+</p>
+
+
  
 
-<content> <h1 id="love-never-dies">Love never dies</h1>
-<h2 id="the-first-day-use-static-blog-20250906">The first day use static blog 2025/09/06</h2>
+<content> <h1 id="设备清单">设备清单</h1>
+<ol>
+<li>mac电脑一台（作为主控端）</li>
+<li>windows电脑一台（作为被控端）</li>
+<li>logi master系列键鼠一套</li>
+</ol>
+<h1 id="遇到的问题">遇到的问题</h1>
+<p>Synergu已经正常启用。mac作为主控设备，且关闭了logi flow情况下，在windows（被控端）使用鼠标明显<strong>慢很多</strong>，原因是罗技鼠标在mac上对鼠标有优化，到了windows处就变得不可识别，俗话讲就是鼠标加速没有了。因为主控权还是在mac端，所以只能通过修改mac端的鼠标速度来优化，修改windows端是没用的。</p>
+<blockquote>
+<p>备注：windows作为主控端时，没有发现这个问题</p></blockquote>
+<h1 id="解决方法">解决方法</h1>
+<p>即使是修改mac端的鼠标速度，两端的鼠标速度也会不一致，那此时只能借助logi flow来实现了，操作如下，两边都改成这样<figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20241014172702-7ekifrc.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<p>实现的原理是，鼠标穿越的时候既能享受到synergy的毫秒级跨越，也能利用logi flow用上被控端的灵敏度，从而使得两端的灵敏度足够一致。也就是说，穿越到windows端时，logi flow就会用windows端的配置，此时两边鼠标的配置可以分别设置且不受影响。</p>
+<p>如果是罗技键盘可以把这个打开，防止自己误触键盘切换到被控端<figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20241014173035-rh0nrrf.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<p>‍</p>
+<p>‍</p>
+<p>‍</p>
  </content>
 
 <p>
@@ -550,99 +625,6 @@ The first day use static blog 2025/09/06" />
  
 <div class="toc">
 
-
-<nav class="toc-nav">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#the-first-day-use-static-blog-20250906">The first day use static blog 2025/09/06</a></li>
-  </ul>
-</nav>
-</nav>
-
-<script>
-    
-    document.addEventListener('DOMContentLoaded', function () {
-        const tocLinks = document.querySelectorAll('.toc-nav a');
-        const headings = Array.from(tocLinks).map(link => {
-            const id = link.getAttribute('href').replace('#', '');
-            return document.getElementById(id);
-        }).filter(h => h);
-
-        
-        tocLinks.forEach(link => {
-            link.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').replace('#', '');
-                const target = document.getElementById(targetId);
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-
-                    
-                    tocLinks.forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                }
-            });
-        });
-
-        
-        function updateActiveLink() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const windowHeight = window.innerHeight;
-
-            for (let i = headings.length - 1; i >= 0; i--) {
-                const heading = headings[i];
-                const rect = heading.getBoundingClientRect();
-
-                if (rect.top <= 100) {
-                    
-                    tocLinks.forEach(link => link.classList.remove('active'));
-                    
-                    
-                    const activeLink = document.querySelector(`.toc-nav a[href="#${heading.id}"]`);
-                    if (activeLink) {
-                        activeLink.classList.add('active');
-                        
-                        
-                        let currentLi = activeLink.closest('li');
-                        while (currentLi) {
-                            const parentLi = currentLi.parentElement.closest('li');
-                            if (parentLi) {
-                                const parentLink = parentLi.querySelector('a');
-                                if (parentLink) {
-                                    parentLink.classList.add('active');
-                                }
-                                currentLi = parentLi;
-                            } else {
-                                break;
-                            }
-                        }
-                    }
-                    break;
-                }
-            }
-        }
-
-        
-        let ticking = false;
-        function throttleScroll() {
-            if (!ticking) {
-                requestAnimationFrame(function () {
-                    updateActiveLink();
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        }
-
-        window.addEventListener('scroll', throttleScroll);
-
-        
-        updateActiveLink();
-    });
-</script>
 
 </div>
 

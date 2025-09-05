@@ -6,21 +6,96 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="shortcut icon" href="https://perinchiang.github.io/images/favicon.png" />
-<title>Moments | Patrick&#39;s Blog</title>
-<meta name="title" content="Moments" />
-<meta name="description" content="Love never dies
-The first day use static blog 2025/09/06" />
+<title>极空间部署思源笔记并使用公网访问 | Patrick&#39;s Blog</title>
+<meta name="title" content="极空间部署思源笔记并使用公网访问" />
+<meta name="description" content="第一步，在极空间docker内部署思源笔记
+打开极空间docker拉取思源笔记镜像，记得拉取最新版，如果不是最新版就在自定义拉取里输入docker pull b3log/siyaun
+
+    
+    image
+
+添加下载好的镜像到容器
+
+    
+    image
+
+分配一个文件夹路径
+
+    
+    image
+
+端口添加一个6806
+
+    
+    image
+
+第二步，验证是否部署成功
+打开极空间的设置-&gt;网络设置-&gt;IP配置，获取极空间的本地IP地址，如图，我的是192.168.1.105
+
+    
+    image
+
+然后在浏览器用192.168.1.105:6806 访问一下，没问题继续下一步
+
+    
+    image
+
+第三步，花生壳内网穿透（可选）
+如果想要远程访问的话可以继续这一步。
+登陆花生壳，自己注册一个，它会送你一个外网域名，用这个域名添加映射
+
+映射类型选择HTTPS 端口443
+内网地址就是刚才打开成功siyuan笔记的地址
+
+
+    
+    image
+
+设置完后，用外网域名登陆即可！
+最后一步，找个家里的设备开启花生壳
+本来打算在极空间部署花生壳然后就万事大吉的
+
+docker pull bestoray/pgyvpn
+这里有一步要弄虚拟网卡，没想到极空间好像没开放ssh密码，所以就放弃了。
+后来看到b站教程用旧安卓手机开启就好了，于是我拿出了珍藏多年的锤子手机下载花生壳，搞定！
+
+    
+    image
+
+好像用树莓派、linux也可以，这里我就没折腾了
+‍
+‍
+‍" />
 <meta name="keywords" content="" />
 
-<link rel="canonical" href="https://perinchiang.github.io/monents/">
+<link rel="canonical" href="https://perinchiang.github.io/p/%E6%9E%81%E7%A9%BA%E9%97%B4%E9%83%A8%E7%BD%B2%E6%80%9D%E6%BA%90%E7%AC%94%E8%AE%B0%E5%B9%B6%E4%BD%BF%E7%94%A8%E5%85%AC%E7%BD%91%E8%AE%BF%E9%97%AE/">
 
 
-<meta property="og:url" content="https://perinchiang.github.io/monents/">
+<meta property="og:url" content="https://perinchiang.github.io/p/%E6%9E%81%E7%A9%BA%E9%97%B4%E9%83%A8%E7%BD%B2%E6%80%9D%E6%BA%90%E7%AC%94%E8%AE%B0%E5%B9%B6%E4%BD%BF%E7%94%A8%E5%85%AC%E7%BD%91%E8%AE%BF%E9%97%AE/">
   <meta property="og:site_name" content="Patrick&#39;s Blog">
-  <meta property="og:title" content="Moments">
-  <meta property="og:description" content="Love never dies The first day use static blog 2025/09/06">
+  <meta property="og:title" content="极空间部署思源笔记并使用公网访问">
+  <meta property="og:description" content="第一步，在极空间docker内部署思源笔记 打开极空间docker拉取思源笔记镜像，记得拉取最新版，如果不是最新版就在自定义拉取里输入docker pull b3log/siyaun
+image 添加下载好的镜像到容器
+image 分配一个文件夹路径
+image 端口添加一个6806
+image 第二步，验证是否部署成功 打开极空间的设置-&gt;网络设置-&gt;IP配置，获取极空间的本地IP地址，如图，我的是192.168.1.105
+image 然后在浏览器用192.168.1.105:6806 访问一下，没问题继续下一步
+image 第三步，花生壳内网穿透（可选） 如果想要远程访问的话可以继续这一步。
+登陆花生壳，自己注册一个，它会送你一个外网域名，用这个域名添加映射
+映射类型选择HTTPS 端口443 内网地址就是刚才打开成功siyuan笔记的地址 image 设置完后，用外网域名登陆即可！
+最后一步，找个家里的设备开启花生壳 本来打算在极空间部署花生壳然后就万事大吉的
+docker pull bestoray/pgyvpn
+这里有一步要弄虚拟网卡，没想到极空间好像没开放ssh密码，所以就放弃了。
+后来看到b站教程用旧安卓手机开启就好了，于是我拿出了珍藏多年的锤子手机下载花生壳，搞定！
+image 好像用树莓派、linux也可以，这里我就没折腾了
+‍
+‍
+‍">
   <meta property="og:locale" content="en_US">
   <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2023-07-22T20:33:07+00:00">
+    <meta property="article:modified_time" content="2024-02-27T05:05:01+00:00">
     <meta property="og:image" content="https://perinchiang.github.io/images/share.png">
 
 
@@ -28,15 +103,49 @@ The first day use static blog 2025/09/06" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://perinchiang.github.io/images/share.png">
-  <meta name="twitter:title" content="Moments">
-  <meta name="twitter:description" content="Love never dies The first day use static blog 2025/09/06">
+  <meta name="twitter:title" content="极空间部署思源笔记并使用公网访问">
+  <meta name="twitter:description" content="第一步，在极空间docker内部署思源笔记 打开极空间docker拉取思源笔记镜像，记得拉取最新版，如果不是最新版就在自定义拉取里输入docker pull b3log/siyaun
+image 添加下载好的镜像到容器
+image 分配一个文件夹路径
+image 端口添加一个6806
+image 第二步，验证是否部署成功 打开极空间的设置-&gt;网络设置-&gt;IP配置，获取极空间的本地IP地址，如图，我的是192.168.1.105
+image 然后在浏览器用192.168.1.105:6806 访问一下，没问题继续下一步
+image 第三步，花生壳内网穿透（可选） 如果想要远程访问的话可以继续这一步。
+登陆花生壳，自己注册一个，它会送你一个外网域名，用这个域名添加映射
+映射类型选择HTTPS 端口443 内网地址就是刚才打开成功siyuan笔记的地址 image 设置完后，用外网域名登陆即可！
+最后一步，找个家里的设备开启花生壳 本来打算在极空间部署花生壳然后就万事大吉的
+docker pull bestoray/pgyvpn
+这里有一步要弄虚拟网卡，没想到极空间好像没开放ssh密码，所以就放弃了。
+后来看到b站教程用旧安卓手机开启就好了，于是我拿出了珍藏多年的锤子手机下载花生壳，搞定！
+image 好像用树莓派、linux也可以，这里我就没折腾了
+‍
+‍
+‍">
 
 
 
 
-  <meta itemprop="name" content="Moments">
-  <meta itemprop="description" content="Love never dies The first day use static blog 2025/09/06">
-  <meta itemprop="wordCount" content="10">
+  <meta itemprop="name" content="极空间部署思源笔记并使用公网访问">
+  <meta itemprop="description" content="第一步，在极空间docker内部署思源笔记 打开极空间docker拉取思源笔记镜像，记得拉取最新版，如果不是最新版就在自定义拉取里输入docker pull b3log/siyaun
+image 添加下载好的镜像到容器
+image 分配一个文件夹路径
+image 端口添加一个6806
+image 第二步，验证是否部署成功 打开极空间的设置-&gt;网络设置-&gt;IP配置，获取极空间的本地IP地址，如图，我的是192.168.1.105
+image 然后在浏览器用192.168.1.105:6806 访问一下，没问题继续下一步
+image 第三步，花生壳内网穿透（可选） 如果想要远程访问的话可以继续这一步。
+登陆花生壳，自己注册一个，它会送你一个外网域名，用这个域名添加映射
+映射类型选择HTTPS 端口443 内网地址就是刚才打开成功siyuan笔记的地址 image 设置完后，用外网域名登陆即可！
+最后一步，找个家里的设备开启花生壳 本来打算在极空间部署花生壳然后就万事大吉的
+docker pull bestoray/pgyvpn
+这里有一步要弄虚拟网卡，没想到极空间好像没开放ssh密码，所以就放弃了。
+后来看到b站教程用旧安卓手机开启就好了，于是我拿出了珍藏多年的锤子手机下载花生壳，搞定！
+image 好像用树莓派、linux也可以，这里我就没折腾了
+‍
+‍
+‍">
+  <meta itemprop="datePublished" content="2023-07-22T20:33:07+00:00">
+  <meta itemprop="dateModified" content="2024-02-27T05:05:01+00:00">
+  <meta itemprop="wordCount" content="37">
   <meta itemprop="image" content="https://perinchiang.github.io/images/share.png">
 <meta name="referrer" content="no-referrer-when-downgrade" />
 
@@ -431,10 +540,79 @@ The first day use static blog 2025/09/06" />
 </nav>
 </header>
   <main>
+
+
+<h1>极空间部署思源笔记并使用公网访问</h1>
+
+<p>
+  <i>
+    <time datetime='2023-07-22' pubdate>
+      22 Jul, 2023
+    </time>
+  </i>
+</p>
+
+
  
 
-<content> <h1 id="love-never-dies">Love never dies</h1>
-<h2 id="the-first-day-use-static-blog-20250906">The first day use static blog 2025/09/06</h2>
+<content> <h1 id="第一步在极空间docker内部署思源笔记">第一步，在极空间docker内部署思源笔记</h1>
+<p>打开极空间docker拉取思源笔记镜像，记得拉取最新版，如果不是最新版就在自定义拉取里输入docker pull b3log/siyaun</p>
+<p><figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20230722220328-jellpvb.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<p>添加下载好的镜像到容器</p>
+<p><figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20230722220932-iqj31df.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<p>分配一个文件夹路径</p>
+<p><figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20230722220422-2i6p2ar.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<p>端口添加一个6806</p>
+<p><figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20230722221126-k5oomb4.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<h1 id="第二步验证是否部署成功">第二步，验证是否部署成功</h1>
+<p>打开极空间的设置-&gt;网络设置-&gt;IP配置，获取极空间的本地IP地址，如图，我的是192.168.1.105</p>
+<p><figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20230722220631-kuhe5ju.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<p>然后在浏览器用192.168.1.105:6806 访问一下，没问题继续下一步</p>
+<p><figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20230722221225-0thg5sp.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<h1 id="第三步花生壳内网穿透可选">第三步，花生壳内网穿透（可选）</h1>
+<p>如果想要远程访问的话可以继续这一步。</p>
+<p>登陆花生壳，自己注册一个，它会送你一个外网域名，用这个域名添加映射</p>
+<ul>
+<li>映射类型选择HTTPS 端口443</li>
+<li>内网地址就是刚才打开成功siyuan笔记的地址</li>
+</ul>
+<p><figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20230722222022-3liqota.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<p>设置完后，用外网域名登陆即可！</p>
+<h1 id="最后一步找个家里的设备开启花生壳">最后一步，找个家里的设备开启花生壳</h1>
+<p>本来打算在极空间部署花生壳然后就万事大吉的</p>
+<blockquote>
+<p>docker pull bestoray/pgyvpn</p></blockquote>
+<p>这里有一步要弄虚拟网卡，没想到极空间好像没开放ssh密码，所以就放弃了。</p>
+<p>后来看到b站教程用<strong>旧安卓手机</strong>开启就好了，于是我拿出了珍藏多年的锤子手机下载花生壳，搞定！</p>
+<p><figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20230722222332-y8cw0kl.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<p>好像用树莓派、linux也可以，这里我就没折腾了</p>
+<p>‍</p>
+<p>‍</p>
+<p>‍</p>
  </content>
 
 <p>
@@ -550,99 +728,6 @@ The first day use static blog 2025/09/06" />
  
 <div class="toc">
 
-
-<nav class="toc-nav">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#the-first-day-use-static-blog-20250906">The first day use static blog 2025/09/06</a></li>
-  </ul>
-</nav>
-</nav>
-
-<script>
-    
-    document.addEventListener('DOMContentLoaded', function () {
-        const tocLinks = document.querySelectorAll('.toc-nav a');
-        const headings = Array.from(tocLinks).map(link => {
-            const id = link.getAttribute('href').replace('#', '');
-            return document.getElementById(id);
-        }).filter(h => h);
-
-        
-        tocLinks.forEach(link => {
-            link.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').replace('#', '');
-                const target = document.getElementById(targetId);
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-
-                    
-                    tocLinks.forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                }
-            });
-        });
-
-        
-        function updateActiveLink() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const windowHeight = window.innerHeight;
-
-            for (let i = headings.length - 1; i >= 0; i--) {
-                const heading = headings[i];
-                const rect = heading.getBoundingClientRect();
-
-                if (rect.top <= 100) {
-                    
-                    tocLinks.forEach(link => link.classList.remove('active'));
-                    
-                    
-                    const activeLink = document.querySelector(`.toc-nav a[href="#${heading.id}"]`);
-                    if (activeLink) {
-                        activeLink.classList.add('active');
-                        
-                        
-                        let currentLi = activeLink.closest('li');
-                        while (currentLi) {
-                            const parentLi = currentLi.parentElement.closest('li');
-                            if (parentLi) {
-                                const parentLink = parentLi.querySelector('a');
-                                if (parentLink) {
-                                    parentLink.classList.add('active');
-                                }
-                                currentLi = parentLi;
-                            } else {
-                                break;
-                            }
-                        }
-                    }
-                    break;
-                }
-            }
-        }
-
-        
-        let ticking = false;
-        function throttleScroll() {
-            if (!ticking) {
-                requestAnimationFrame(function () {
-                    updateActiveLink();
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        }
-
-        window.addEventListener('scroll', throttleScroll);
-
-        
-        updateActiveLink();
-    });
-</script>
 
 </div>
 

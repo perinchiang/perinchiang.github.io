@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="https://perinchiang.github.io/images/favicon.png" />
+<title>白嫖谷歌的SSL证书实现网页HTTPS上锁 | Patrick&#39;s Blog</title>
+<meta name="title" content="白嫖谷歌的SSL证书实现网页HTTPS上锁" />
+<meta name="description" content="背景
+家里只有公网IPv6，在使用Cloudflare CDN代理，实现了IPv4-only设备也能上我的网页
+没有证书打开自己搭建的网页来是这样的，想要网站上锁，无奈查了很多文档都失败了，于是自己误打误撞找出了这个方法
+
+    
+    image
+
+研究出了新的方法，用谷歌提供的证书白嫖三个月，实现https上锁，实验结果如下
+
+    
+    image
+
+注册谷歌搜索网站
+
+！提示，此方法可能会将网站暴露在谷歌搜索引擎，不希望自己的网站被谷歌收录可以停止继续了。
+去谷歌网站控制台，填写你的域名，填左边的就可以了，涵盖这个域名的所有网址
+https://search.google.com/search-console
+
+    
+    image
+
+选择域名供应商
+我这里选择的是Cloudflare，因为我之前已经验证过了，所以直接是绿色。
+
+    
+    image
+
+2. 检查是否正确
+这里显示有你的网站即可，稍后查看邮箱会收到google发来的邮件，就是成功了。
+
+    
+    image
+
+查看Cloudflare-&gt;SSL-&gt;边缘证书会给你发放一个证书，不需要编辑修改
+
+    
+    image
+
+查看Cloudflare-&gt;DNS-&gt;会给你发放一个TXT类型记录，同样不需要编辑修改。
+在这个页面，最好配置一下DNS，确定可用后把代理状态打开。
+
+    
+    image
+
+此时有关https的配置如下，其实就是保持默认，其他的不需要动。
+SSL概述
+
+    
+    image
+
+边缘证书：
+
+    
+    image
+
+用Origin Rules隐藏端口
+比url301重定向更好，301只是输入域名转跳到域名&#43;端口，用Origin rules的话是真正的隐藏域名
+比如我在DNS里写了一个类型为A，名称是mv，内容是192.168.1.88的记录，此时mv.abc.com:9876可以访问这个应用，隐藏端口的方法如下：
+
+    
+    image
+
+
+    
+    image
+
+测试一下，域名&#43;端口无法访问，因为此时走的是https
+
+这样做的缺点就是，同一个域名想加多点应用访问，只能做多几条Origin Rules，也就是做多几个子域名
+mv.abc.com:8888 -&gt; mv.abc.com
+ok.abc.com:7777 -&gt; ok.abc
+
+    
+    image
+
+现在只能直接访问了，还给网站自动上锁，不会提示不安全了，但是如果上不去，建议检查一下谷歌SSL证书
+
+    
+    image
+
+‍
+检查
+https://ipw.cn/ssl/?site=ipw.cn
+
+    
+    image
+
+‍" />
+<meta name="keywords" content="" />
+
+<link rel="canonical" href="https://perinchiang.github.io/p/%E7%99%BD%E5%AB%96%E8%B0%B7%E6%AD%8C%E7%9A%84ssl%E8%AF%81%E4%B9%A6%E5%AE%9E%E7%8E%B0%E7%BD%91%E9%A1%B5https%E4%B8%8A%E9%94%81/">
+
+
+<meta property="og:url" content="https://perinchiang.github.io/p/%E7%99%BD%E5%AB%96%E8%B0%B7%E6%AD%8C%E7%9A%84ssl%E8%AF%81%E4%B9%A6%E5%AE%9E%E7%8E%B0%E7%BD%91%E9%A1%B5https%E4%B8%8A%E9%94%81/">
+  <meta property="og:site_name" content="Patrick&#39;s Blog">
+  <meta property="og:title" content="白嫖谷歌的SSL证书实现网页HTTPS上锁">
+  <meta property="og:description" content="背景 家里只有公网IPv6，在使用Cloudflare CDN代理，实现了IPv4-only设备也能上我的网页
+没有证书打开自己搭建的网页来是这样的，想要网站上锁，无奈查了很多文档都失败了，于是自己误打误撞找出了这个方法
+image 研究出了新的方法，用谷歌提供的证书白嫖三个月，实现https上锁，实验结果如下
+image 注册谷歌搜索网站 ！提示，此方法可能会将网站暴露在谷歌搜索引擎，不希望自己的网站被谷歌收录可以停止继续了。
+去谷歌网站控制台，填写你的域名，填左边的就可以了，涵盖这个域名的所有网址 https://search.google.com/search-console
+image 选择域名供应商 我这里选择的是Cloudflare，因为我之前已经验证过了，所以直接是绿色。
+image 2. 检查是否正确 这里显示有你的网站即可，稍后查看邮箱会收到google发来的邮件，就是成功了。
+image 查看Cloudflare-&gt;SSL-&gt;边缘证书会给你发放一个证书，不需要编辑修改
+image 查看Cloudflare-&gt;DNS-&gt;会给你发放一个TXT类型记录，同样不需要编辑修改。 在这个页面，最好配置一下DNS，确定可用后把代理状态打开。
+image 此时有关https的配置如下，其实就是保持默认，其他的不需要动。
+SSL概述
+image 边缘证书：
+image 用Origin Rules隐藏端口 比url301重定向更好，301只是输入域名转跳到域名&#43;端口，用Origin rules的话是真正的隐藏域名
+比如我在DNS里写了一个类型为A，名称是mv，内容是192.168.1.88的记录，此时mv.abc.com:9876可以访问这个应用，隐藏端口的方法如下：
+image image 测试一下，域名&#43;端口无法访问，因为此时走的是https
+这样做的缺点就是，同一个域名想加多点应用访问，只能做多几条Origin Rules，也就是做多几个子域名
+mv.abc.com:8888 -&gt; mv.abc.com
+ok.abc.com:7777 -&gt; ok.abc
+image 现在只能直接访问了，还给网站自动上锁，不会提示不安全了，但是如果上不去，建议检查一下谷歌SSL证书
+image ‍
+检查 https://ipw.cn/ssl/?site=ipw.cn
+image ‍">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2024-03-04T17:50:00+00:00">
+    <meta property="article:modified_time" content="2024-10-07T17:01:14+00:00">
+    <meta property="og:image" content="https://perinchiang.github.io/images/share.png">
+
+
+
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://perinchiang.github.io/images/share.png">
+  <meta name="twitter:title" content="白嫖谷歌的SSL证书实现网页HTTPS上锁">
+  <meta name="twitter:description" content="背景 家里只有公网IPv6，在使用Cloudflare CDN代理，实现了IPv4-only设备也能上我的网页
+没有证书打开自己搭建的网页来是这样的，想要网站上锁，无奈查了很多文档都失败了，于是自己误打误撞找出了这个方法
+image 研究出了新的方法，用谷歌提供的证书白嫖三个月，实现https上锁，实验结果如下
+image 注册谷歌搜索网站 ！提示，此方法可能会将网站暴露在谷歌搜索引擎，不希望自己的网站被谷歌收录可以停止继续了。
+去谷歌网站控制台，填写你的域名，填左边的就可以了，涵盖这个域名的所有网址 https://search.google.com/search-console
+image 选择域名供应商 我这里选择的是Cloudflare，因为我之前已经验证过了，所以直接是绿色。
+image 2. 检查是否正确 这里显示有你的网站即可，稍后查看邮箱会收到google发来的邮件，就是成功了。
+image 查看Cloudflare-&gt;SSL-&gt;边缘证书会给你发放一个证书，不需要编辑修改
+image 查看Cloudflare-&gt;DNS-&gt;会给你发放一个TXT类型记录，同样不需要编辑修改。 在这个页面，最好配置一下DNS，确定可用后把代理状态打开。
+image 此时有关https的配置如下，其实就是保持默认，其他的不需要动。
+SSL概述
+image 边缘证书：
+image 用Origin Rules隐藏端口 比url301重定向更好，301只是输入域名转跳到域名&#43;端口，用Origin rules的话是真正的隐藏域名
+比如我在DNS里写了一个类型为A，名称是mv，内容是192.168.1.88的记录，此时mv.abc.com:9876可以访问这个应用，隐藏端口的方法如下：
+image image 测试一下，域名&#43;端口无法访问，因为此时走的是https
+这样做的缺点就是，同一个域名想加多点应用访问，只能做多几条Origin Rules，也就是做多几个子域名
+mv.abc.com:8888 -&gt; mv.abc.com
+ok.abc.com:7777 -&gt; ok.abc
+image 现在只能直接访问了，还给网站自动上锁，不会提示不安全了，但是如果上不去，建议检查一下谷歌SSL证书
+image ‍
+检查 https://ipw.cn/ssl/?site=ipw.cn
+image ‍">
+
+
+
+
+  <meta itemprop="name" content="白嫖谷歌的SSL证书实现网页HTTPS上锁">
+  <meta itemprop="description" content="背景 家里只有公网IPv6，在使用Cloudflare CDN代理，实现了IPv4-only设备也能上我的网页
+没有证书打开自己搭建的网页来是这样的，想要网站上锁，无奈查了很多文档都失败了，于是自己误打误撞找出了这个方法
+image 研究出了新的方法，用谷歌提供的证书白嫖三个月，实现https上锁，实验结果如下
+image 注册谷歌搜索网站 ！提示，此方法可能会将网站暴露在谷歌搜索引擎，不希望自己的网站被谷歌收录可以停止继续了。
+去谷歌网站控制台，填写你的域名，填左边的就可以了，涵盖这个域名的所有网址 https://search.google.com/search-console
+image 选择域名供应商 我这里选择的是Cloudflare，因为我之前已经验证过了，所以直接是绿色。
+image 2. 检查是否正确 这里显示有你的网站即可，稍后查看邮箱会收到google发来的邮件，就是成功了。
+image 查看Cloudflare-&gt;SSL-&gt;边缘证书会给你发放一个证书，不需要编辑修改
+image 查看Cloudflare-&gt;DNS-&gt;会给你发放一个TXT类型记录，同样不需要编辑修改。 在这个页面，最好配置一下DNS，确定可用后把代理状态打开。
+image 此时有关https的配置如下，其实就是保持默认，其他的不需要动。
+SSL概述
+image 边缘证书：
+image 用Origin Rules隐藏端口 比url301重定向更好，301只是输入域名转跳到域名&#43;端口，用Origin rules的话是真正的隐藏域名
+比如我在DNS里写了一个类型为A，名称是mv，内容是192.168.1.88的记录，此时mv.abc.com:9876可以访问这个应用，隐藏端口的方法如下：
+image image 测试一下，域名&#43;端口无法访问，因为此时走的是https
+这样做的缺点就是，同一个域名想加多点应用访问，只能做多几条Origin Rules，也就是做多几个子域名
+mv.abc.com:8888 -&gt; mv.abc.com
+ok.abc.com:7777 -&gt; ok.abc
+image 现在只能直接访问了，还给网站自动上锁，不会提示不安全了，但是如果上不去，建议检查一下谷歌SSL证书
+image ‍
+检查 https://ipw.cn/ssl/?site=ipw.cn
+image ‍">
+  <meta itemprop="datePublished" content="2024-03-04T17:50:00+00:00">
+  <meta itemprop="dateModified" content="2024-10-07T17:01:14+00:00">
+  <meta itemprop="wordCount" content="53">
+  <meta itemprop="image" content="https://perinchiang.github.io/images/share.png">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+   
+  :root {
+    --width-max: 720px;
+    --font-primary: Verdana, sans-serif;
+    --font-secondary: monospace;
+    --font-size-primary: 1em;
+    --font-size-secondary: 0.8em;
+    --body-bg-color: #fcfcfc;
+    --bold-text-color: #222;
+    --body-text-color: #444;
+    --link-color: #3273dc;
+    --link-visited-color: #8b6fcb;
+    --table-border-color: #f2f2f2;
+    --table-th-bg-color: #f2f2f2;
+    --img-border-color: #f2f2f2;
+    --code-bg-color: #f2f2f2;
+    --code-text-color: #222;
+    --blockquote-border-color: #666;
+    --blockquote-text-color: #666;
+    --upvoted-color: #FA8072;
+    --caption-text-color: #666;
+    --toc-text-color: #e5e5e5;
+    --toc-hover-color: #655e5e;
+  }
+
+  @media (prefers-color-scheme: dark) {
+     
+    :root {
+      --body-bg-color: #1c1c1c;
+      --bold-text-color: #eee;
+      --body-text-color: #ddd;
+      --link-color: #8cc2dd;
+      --link-visited-color: #c3b1ee;
+      --table-border-color: #999;
+      --table-th-bg-color: #999;
+      --img-border-color: #999;
+      --code-bg-color: #555;
+      --code-text-color: #ddd;
+      --blockquote-border-color: #ccc;
+      --blockquote-text-color: #ccc;
+      --caption-text-color: #aaa;
+      --toc-text-color: #373737;
+      --toc-hover-color: #CAC3C3;
+    }
+  }
+
+  body {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-primary);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width-max);
+    text-align: left;
+    background-color: var(--body-bg-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: var(--body-text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: var(--bold-text-color);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 16px 0;
+  }
+
+  a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title:hover {
+    text-decoration: none;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 8px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 14px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--table-border-color);
+    border-radius: 4px;
+  }
+
+  th,
+  td {
+    border: 1px solid var(--table-border-color);
+    padding: 4px;
+  }
+
+  th {
+    background-color: var(--table-th-bg-color);
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px dashed;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid var(--img-border-color);
+    border-radius: 4px;
+    content-visibility: auto;
+    loading: lazy;
+  }
+
+  img[src*="#minipic"] {
+    max-width: 50%;
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  .image-caption figcaption {
+    text-align: center;
+    font-style: italic;
+    font-size: 0.8em;
+    margin-top: 0.6em;
+    color: var(--caption-text-color);
+  }
+
+  .image-caption {
+    margin: auto;
+  }
+
+  i {
+    font-style: normal;
+  }
+
+  time {
+    font-family: var(--font-secondary);
+    font-size: 15px;
+  }
+
+  code {
+    font-family: var(--font-secondary);
+    background-color: var(--code-bg-color);
+    color: var(--code-text-color);
+    padding: 2px;
+    border-radius: 4px;
+  }
+
+  pre code {
+    display: block;
+    padding: 16px;
+    white-space: pre-wrap;
+    overflow-x: auto;
+  }
+
+  div.highlight pre {
+    border-radius: 4px;
+  }
+
+  div.highlight code {
+    background-color: var(--code-bg-color);
+    color: var(--code-text-color);
+  }
+
+  blockquote {
+    border-left: 2px solid var(--blockquote-border-color);
+    color: var(--blockquote-text-color);
+    margin: 0;
+    padding-left: 16px;
+    font-style: normal;
+  }
+
+  blockquote p {
+    margin: 0;
+  }
+
+  footer {
+    padding: 25px 0;
+    text-align: center;
+    font-size: var(--font-size-secondary);
+  }
+
+  ul li:has(input) {
+    list-style-type: none;
+    margin-left: -25.5px;
+  }
+
+   
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li span.grouped {
+    flex: 0 0 80px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: var(--link-visited-color);
+  }
+
+   
+    div.toc {
+        position: fixed;  
+        top: 50%;  
+        left: calc((100vw + var(--width-max)) / 2);  
+        transform: translateY(-50%);  
+        width: calc((90vw - var(--width-max)) / 2);  
+        max-height: 80vh;  
+        overflow-y: auto;  
+        border: none;  
+        padding: 0;  
+        margin: 0;  
+        z-index: 99;  
+
+         
+        &::-webkit-scrollbar {  
+            display: none;  
+        }
+
+        -ms-overflow-style: none;  
+        scrollbar-width: none;  
+    }
+
+    .toc-nav {  
+        padding: 1.5rem;  
+    }
+
+    .toc-nav ul {  
+        list-style: none;  
+        padding: 0;  
+        margin: 0;  
+    }
+
+    .toc-nav li {  
+        margin: 8px 0;  
+    }
+
+    .toc-nav a {  
+        display: block;  
+        text-decoration: none;  
+        color: transparent;  
+        padding: 0 12px;  
+        transition: all 0.2s ease;  
+        font-size: 0.9rem;  
+        line-height: 1.4;  
+        text-align: left;  
+        white-space: nowrap;  
+        overflow: hidden;  
+        text-overflow: ellipsis;  
+        max-width: 100%;  
+    }
+    
+    .toc-nav:hover a {
+        color: var(--toc-text-color);  
+    }
+
+    .toc-nav a::before {  
+        content: '';  
+        display: inline-block;  
+        width: 16px;  
+        height: 4px;  
+        background-color: var(--toc-text-color);  
+        border-radius: 16px;  
+        margin-right: 12px;  
+        vertical-align: middle;  
+    }
+
+    .toc-nav ul ul a::before {  
+        width: 12px;  
+        margin-right: 16px;  
+    }
+
+    .toc-nav ul ul ul a::before {  
+        width: 8px;  
+        margin-right: 20px;  
+    }
+
+    .toc-nav a.active,  
+    .toc-nav a:hover {
+        text-decoration: none;  
+        color: var(--toc-hover-color);  
+    }
+
+    .toc-nav a.active::before,  
+    .toc-nav a:hover::before {
+        background-color: var(--toc-hover-color);  
+    }
+
+   
+  button.upvote-btn {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--body-text-color);
+  }
+
+  button.upvoted {
+    color: var(--upvoted-color);
+  }
+
+  span.upvote-count {
+    margin-top: -4px;
+    font-size: smaller;
+  }
+
+  @media (max-width: 800px) {
+    img[src*="#minipic"] {
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    div.toc {
+      display: none;
+    }
+  }
+</style>
+
+</head>
+
+<body>
+  <header><a href="/" class="title">
+  <h1>Patrick&#39;s Blog</h1>
+</a>
+<nav><a href="/">Home</a>
+
+<a href="/book/books/">Books</a>
+
+<a href="/monents/">Moments</a>
+
+
+<a href="/blog/">Blog</a>
+
+</nav>
+</header>
+  <main>
+
+
+<h1>白嫖谷歌的SSL证书实现网页HTTPS上锁</h1>
+
+<p>
+  <i>
+    <time datetime='2024-03-04' pubdate>
+      04 Mar, 2024
+    </time>
+  </i>
+</p>
+
+
+ 
+
+<content> <h1 id="背景">背景</h1>
+<p>家里只有公网IPv6，在使用Cloudflare CDN代理，实现了IPv4-only设备也能上我的网页</p>
+<p>没有证书打开自己搭建的网页来是这样的，想要网站上锁，无奈查了很多文档都失败了，于是自己误打误撞找出了这个方法</p>
+<p><figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20240304172925-sppvc7z.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<p>研究出了新的方法，用谷歌提供的证书白嫖三个月，实现https上锁，实验结果如下</p>
+<p><figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20240304172949-aczp9x7.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<h1 id="注册谷歌搜索网站">注册谷歌搜索网站</h1>
+<blockquote>
+<p>！提示，此方法可能会将网站暴露在谷歌搜索引擎，不希望自己的网站被谷歌收录可以停止继续了。</p></blockquote>
+<h2 id="去谷歌网站控制台填写你的域名填左边的就可以了涵盖这个域名的所有网址">去谷歌网站控制台，填写你的域名，填左边的就可以了，涵盖这个域名的所有网址</h2>
+<p><a href="https://search.google.com/search-console">https://search.google.com/search-console</a></p>
+<p><figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20240304173014-06t20a1.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<h2 id="选择域名供应商">选择域名供应商</h2>
+<p>我这里选择的是Cloudflare，因为我之前已经验证过了，所以直接是绿色。</p>
+<p><figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20240304171620-tvgcudy.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<h1 id="2-检查是否正确">2. 检查是否正确</h1>
+<p>这里显示有你的网站即可，稍后查看邮箱会收到google发来的邮件，就是成功了。</p>
+<p><figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20240304171731-g32sobu.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<p>查看Cloudflare-&gt;SSL-&gt;边缘证书会给你发放一个证书，不需要编辑修改</p>
+<p><figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20240304173312-rnbm112.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<p>查看Cloudflare-&gt;DNS-&gt;会给你发放一个TXT类型记录，同样不需要编辑修改。
+在这个页面，最好配置一下DNS，确定可用后把代理状态打开。</p>
+<p><figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20240304173251-9tlhnit.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<p>此时有关https的配置如下，其实就是保持<strong>默认</strong>，其他的不需要动。</p>
+<p>SSL概述</p>
+<p><figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20240304173435-thurr2b.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<p>边缘证书：</p>
+<p><figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20240304172408-to4rlrm.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<h1 id="用origin-rules隐藏端口">用Origin Rules隐藏端口</h1>
+<p>比url301重定向更好，301只是输入域名转跳到域名+端口，用Origin rules的话是真正的隐藏域名</p>
+<p>比如我在DNS里写了一个类型为A，名称是mv，内容是192.168.1.88的记录，此时mv.abc.com:9876可以访问这个应用，隐藏端口的方法如下：</p>
+<p><figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20240304170639-vvcq1v7.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<p><figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20240304170856-t7hrtss.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<p>测试一下，域名+端口无法访问，因为此时走的是https</p>
+<blockquote>
+<p>这样做的缺点就是，同一个域名想加多点应用访问，只能做多几条Origin Rules，也就是做多几个子域名</p>
+<p>mv.abc.com:8888 -&gt; mv.abc.com</p>
+<p>ok.abc.com:7777 -&gt; ok.abc</p></blockquote>
+<p><figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20240304172715-qo32xnz.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<p>现在只能直接访问了，还给网站自动上锁，不会提示不安全了，但是如果上不去，建议检查一下谷歌SSL证书</p>
+<p><figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20240304172647-x0wkkpz.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<p>‍</p>
+<h1 id="检查">检查</h1>
+<p><a href="https://ipw.cn/ssl/?site=ipw.cn">https://ipw.cn/ssl/?site=ipw.cn</a></p>
+<p><figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20240304193406-z7f9e3d.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<p>‍</p>
+ </content>
+
+<p>
+  
+</p>
+
+
+
+<div class="upvote-container">
+<small class="upvote">
+  <button class="upvote-btn" id="upvote-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
+    <polyline points="17 11 12 6 7 11"></polyline>
+    <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+    <span class="upvote-count" id="upvote-count">0</span>
+  </button>
+</small>
+</div>
+
+<script>
+  let hasUpvoted = false;
+  let upvoteBtn;
+  let upvoteCount;
+
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    const slug = '';
+    upvoteBtn = document.getElementById('upvote-btn');
+    upvoteCount = document.getElementById('upvote-count');
+    getCount(slug);
+
+    
+    upvoteBtn.addEventListener('click', handleUpvote);
+  });
+
+  
+  async function handleUpvote() {
+    if (hasUpvoted) {
+      console.log('You have already upvoted this post!');
+      return;
+    }
+    const slug = '';
+
+    
+    upvoteBtn.disabled = true;
+    
+    upvoteBtn.classList.add('upvoted');
+    
+    upvoteCount.innerText = parseInt(upvoteCount.innerText) + 1;
+
+    try {
+      const response = await fetch('hugo.perinchiang.workers.dev\/upvote', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ postId: slug, diff: 1 }),
+      });
+
+      if (response.ok) {
+        console.log('Upvote successful!');
+        hasUpvoted = true;
+        await getCount(slug, 3);
+      } else {
+        console.log('Upvote failed!');
+      }
+    } catch (error) {
+      console.error('Error: ', error);
+    } finally {
+      upvoteBtn.disabled = false;
+    }
+  }
+
+  
+  async function getCount(slug, retryCount = 0) {
+    try {
+      const response = await fetch('hugo.perinchiang.workers.dev\/count?post=' + slug, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+
+      if (data.code === 0) {
+        const count = data.data.count;
+        upvoteCount.innerText = count;
+        hasUpvoted = data.data.hasUpvoted;
+        if (hasUpvoted) {
+          upvoteBtn.classList.add('upvoted');
+        } else {
+          upvoteBtn.classList.remove('upvoted');
+        }
+      } else {
+        console.error('Failed to get upvote count: ', data.msg);
+      }
+    } catch (error) {
+      console.error('Error: ', error);
+      if (retryCount > 0) {
+        setTimeout(() => {
+          getCount(slug, retryCount - 1);
+        }, 1000);
+      }
+    }
+  }
+</script>
+
+
+
+
+ 
+<div class="toc">
+
+
+<nav class="toc-nav">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#去谷歌网站控制台填写你的域名填左边的就可以了涵盖这个域名的所有网址">去谷歌网站控制台，填写你的域名，填左边的就可以了，涵盖这个域名的所有网址</a></li>
+    <li><a href="#选择域名供应商">选择域名供应商</a></li>
+  </ul>
+</nav>
+</nav>
+
+<script>
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        const tocLinks = document.querySelectorAll('.toc-nav a');
+        const headings = Array.from(tocLinks).map(link => {
+            const id = link.getAttribute('href').replace('#', '');
+            return document.getElementById(id);
+        }).filter(h => h);
+
+        
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').replace('#', '');
+                const target = document.getElementById(targetId);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+
+                    
+                    tocLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        
+        function updateActiveLink() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const windowHeight = window.innerHeight;
+
+            for (let i = headings.length - 1; i >= 0; i--) {
+                const heading = headings[i];
+                const rect = heading.getBoundingClientRect();
+
+                if (rect.top <= 100) {
+                    
+                    tocLinks.forEach(link => link.classList.remove('active'));
+                    
+                    
+                    const activeLink = document.querySelector(`.toc-nav a[href="#${heading.id}"]`);
+                    if (activeLink) {
+                        activeLink.classList.add('active');
+                        
+                        
+                        let currentLi = activeLink.closest('li');
+                        while (currentLi) {
+                            const parentLi = currentLi.parentElement.closest('li');
+                            if (parentLi) {
+                                const parentLink = parentLi.querySelector('a');
+                                if (parentLink) {
+                                    parentLink.classList.add('active');
+                                }
+                                currentLi = parentLi;
+                            } else {
+                                break;
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+
+        
+        let ticking = false;
+        function throttleScroll() {
+            if (!ticking) {
+                requestAnimationFrame(function () {
+                    updateActiveLink();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+
+        window.addEventListener('scroll', throttleScroll);
+
+        
+        updateActiveLink();
+    });
+</script>
+
+</div>
+
+
+
+  </main>
+  <footer>
+
+
+Subscribe via <a href="/index.xml">RSS</a> or just <a href="mailto:example@example.com">say hello</a>.
+<br />
+
+
+
+
+
+
+
+
+Made with
+<a href="https://github.com/rokcso/hugo-bearneo/">Hugo Bear Neo</a>.
+<br />
+
+
+
+
+Copyright © 2024-2025, Rokcso.
+
+
+🗺️ <a href="/sitemap.xml">Sitemap</a>.
+
+</footer>
+
+    
+
+
+</body>
+
+</html>

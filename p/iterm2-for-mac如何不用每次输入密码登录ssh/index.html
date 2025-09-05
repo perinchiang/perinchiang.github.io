@@ -6,21 +6,54 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="shortcut icon" href="https://perinchiang.github.io/images/favicon.png" />
-<title>Moments | Patrick&#39;s Blog</title>
-<meta name="title" content="Moments" />
-<meta name="description" content="Love never dies
-The first day use static blog 2025/09/06" />
+<title>iterm2 for mac如何不用每次输入密码登录ssh | Patrick&#39;s Blog</title>
+<meta name="title" content="iterm2 for mac如何不用每次输入密码登录ssh" />
+<meta name="description" content="在 iTerm2 中实现无需每次输入密码登录 SSH，您可以使用 SSH 密钥来完成认证。以下是具体步骤：
+
+生成 SSH 密钥对：如果您还没有 SSH 密钥对，可以在终端（不是 iTerm2）中运行以下命令：
+
+ssh-keygen -t rsa
+按照提示，选择生成密钥的存储位置和密钥的名称。一般情况下，会生成两个文件：id_rsa（私钥）和id_rsa.pub（公钥）。
+
+    
+    image
+
+
+将公钥上传到远程服务器：使用 SSH 将公钥上传到您希望登录的远程服务器上。假设您已经具有服务器的登录凭据，可以运行以下命令：
+
+ssh-copy-id user@remote_server
+请将 user 替换为您在远程服务器上的用户名，remote_server 替换为服务器的 IP 地址或域名。
+
+测试 SSH 登录：现在尝试使用 SSH 登录到远程服务器，应该不再需要输入密码：
+
+ssh user@remote_server
+如果一切设置正确，您应该可以无需密码登录到远程服务器。
+
+配置 iTerm2 使用 SSH 密钥：当您在 iTerm2 中使用 SSH 时，它会默认使用系统中的 SSH 设置。确保您的 iTerm2 使用的是正确的 SSH 密钥。
+
+现在您应该可以在 iTerm2 中无需每次输入密码登录 SSH 了。请注意，SSH 密钥提供了更高的安全性，因为它们避免了密码的传输。但请确保您的私钥（id_rsa）始终保存在安全的地方，并且不要与他人共享。
+‍
+‍" />
 <meta name="keywords" content="" />
 
-<link rel="canonical" href="https://perinchiang.github.io/monents/">
+<link rel="canonical" href="https://perinchiang.github.io/p/iterm2-for-mac%E5%A6%82%E4%BD%95%E4%B8%8D%E7%94%A8%E6%AF%8F%E6%AC%A1%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95ssh/">
 
 
-<meta property="og:url" content="https://perinchiang.github.io/monents/">
+<meta property="og:url" content="https://perinchiang.github.io/p/iterm2-for-mac%E5%A6%82%E4%BD%95%E4%B8%8D%E7%94%A8%E6%AF%8F%E6%AC%A1%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95ssh/">
   <meta property="og:site_name" content="Patrick&#39;s Blog">
-  <meta property="og:title" content="Moments">
-  <meta property="og:description" content="Love never dies The first day use static blog 2025/09/06">
+  <meta property="og:title" content="iterm2 for mac如何不用每次输入密码登录ssh">
+  <meta property="og:description" content="在 iTerm2 中实现无需每次输入密码登录 SSH，您可以使用 SSH 密钥来完成认证。以下是具体步骤：
+生成 SSH 密钥对：如果您还没有 SSH 密钥对，可以在终端（不是 iTerm2）中运行以下命令： ssh-keygen -t rsa 按照提示，选择生成密钥的存储位置和密钥的名称。一般情况下，会生成两个文件：id_rsa（私钥）和id_rsa.pub（公钥）。
+image 将公钥上传到远程服务器：使用 SSH 将公钥上传到您希望登录的远程服务器上。假设您已经具有服务器的登录凭据，可以运行以下命令： ssh-copy-id user@remote_server 请将 user 替换为您在远程服务器上的用户名，remote_server 替换为服务器的 IP 地址或域名。
+测试 SSH 登录：现在尝试使用 SSH 登录到远程服务器，应该不再需要输入密码： ssh user@remote_server 如果一切设置正确，您应该可以无需密码登录到远程服务器。
+配置 iTerm2 使用 SSH 密钥：当您在 iTerm2 中使用 SSH 时，它会默认使用系统中的 SSH 设置。确保您的 iTerm2 使用的是正确的 SSH 密钥。 现在您应该可以在 iTerm2 中无需每次输入密码登录 SSH 了。请注意，SSH 密钥提供了更高的安全性，因为它们避免了密码的传输。但请确保您的私钥（id_rsa）始终保存在安全的地方，并且不要与他人共享。
+‍
+‍">
   <meta property="og:locale" content="en_US">
   <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2023-08-03T22:00:11+00:00">
+    <meta property="article:modified_time" content="2024-02-28T20:08:02+00:00">
     <meta property="og:image" content="https://perinchiang.github.io/images/share.png">
 
 
@@ -28,15 +61,29 @@ The first day use static blog 2025/09/06" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://perinchiang.github.io/images/share.png">
-  <meta name="twitter:title" content="Moments">
-  <meta name="twitter:description" content="Love never dies The first day use static blog 2025/09/06">
+  <meta name="twitter:title" content="iterm2 for mac如何不用每次输入密码登录ssh">
+  <meta name="twitter:description" content="在 iTerm2 中实现无需每次输入密码登录 SSH，您可以使用 SSH 密钥来完成认证。以下是具体步骤：
+生成 SSH 密钥对：如果您还没有 SSH 密钥对，可以在终端（不是 iTerm2）中运行以下命令： ssh-keygen -t rsa 按照提示，选择生成密钥的存储位置和密钥的名称。一般情况下，会生成两个文件：id_rsa（私钥）和id_rsa.pub（公钥）。
+image 将公钥上传到远程服务器：使用 SSH 将公钥上传到您希望登录的远程服务器上。假设您已经具有服务器的登录凭据，可以运行以下命令： ssh-copy-id user@remote_server 请将 user 替换为您在远程服务器上的用户名，remote_server 替换为服务器的 IP 地址或域名。
+测试 SSH 登录：现在尝试使用 SSH 登录到远程服务器，应该不再需要输入密码： ssh user@remote_server 如果一切设置正确，您应该可以无需密码登录到远程服务器。
+配置 iTerm2 使用 SSH 密钥：当您在 iTerm2 中使用 SSH 时，它会默认使用系统中的 SSH 设置。确保您的 iTerm2 使用的是正确的 SSH 密钥。 现在您应该可以在 iTerm2 中无需每次输入密码登录 SSH 了。请注意，SSH 密钥提供了更高的安全性，因为它们避免了密码的传输。但请确保您的私钥（id_rsa）始终保存在安全的地方，并且不要与他人共享。
+‍
+‍">
 
 
 
 
-  <meta itemprop="name" content="Moments">
-  <meta itemprop="description" content="Love never dies The first day use static blog 2025/09/06">
-  <meta itemprop="wordCount" content="10">
+  <meta itemprop="name" content="iterm2 for mac如何不用每次输入密码登录ssh">
+  <meta itemprop="description" content="在 iTerm2 中实现无需每次输入密码登录 SSH，您可以使用 SSH 密钥来完成认证。以下是具体步骤：
+生成 SSH 密钥对：如果您还没有 SSH 密钥对，可以在终端（不是 iTerm2）中运行以下命令： ssh-keygen -t rsa 按照提示，选择生成密钥的存储位置和密钥的名称。一般情况下，会生成两个文件：id_rsa（私钥）和id_rsa.pub（公钥）。
+image 将公钥上传到远程服务器：使用 SSH 将公钥上传到您希望登录的远程服务器上。假设您已经具有服务器的登录凭据，可以运行以下命令： ssh-copy-id user@remote_server 请将 user 替换为您在远程服务器上的用户名，remote_server 替换为服务器的 IP 地址或域名。
+测试 SSH 登录：现在尝试使用 SSH 登录到远程服务器，应该不再需要输入密码： ssh user@remote_server 如果一切设置正确，您应该可以无需密码登录到远程服务器。
+配置 iTerm2 使用 SSH 密钥：当您在 iTerm2 中使用 SSH 时，它会默认使用系统中的 SSH 设置。确保您的 iTerm2 使用的是正确的 SSH 密钥。 现在您应该可以在 iTerm2 中无需每次输入密码登录 SSH 了。请注意，SSH 密钥提供了更高的安全性，因为它们避免了密码的传输。但请确保您的私钥（id_rsa）始终保存在安全的地方，并且不要与他人共享。
+‍
+‍">
+  <meta itemprop="datePublished" content="2023-08-03T22:00:11+00:00">
+  <meta itemprop="dateModified" content="2024-02-28T20:08:02+00:00">
+  <meta itemprop="wordCount" content="59">
   <meta itemprop="image" content="https://perinchiang.github.io/images/share.png">
 <meta name="referrer" content="no-referrer-when-downgrade" />
 
@@ -431,10 +478,47 @@ The first day use static blog 2025/09/06" />
 </nav>
 </header>
   <main>
+
+
+<h1>iterm2 for mac如何不用每次输入密码登录ssh</h1>
+
+<p>
+  <i>
+    <time datetime='2023-08-03' pubdate>
+      03 Aug, 2023
+    </time>
+  </i>
+</p>
+
+
  
 
-<content> <h1 id="love-never-dies">Love never dies</h1>
-<h2 id="the-first-day-use-static-blog-20250906">The first day use static blog 2025/09/06</h2>
+<content> <p>在 iTerm2 中实现无需每次输入密码登录 SSH，您可以使用 SSH 密钥来完成认证。以下是具体步骤：</p>
+<ol>
+<li><strong>生成 SSH 密钥对</strong>：如果您还没有 SSH 密钥对，可以在终端（不是 iTerm2）中运行以下命令：</li>
+</ol>
+<pre tabindex="0"><code>ssh-keygen -t rsa
+</code></pre><p>按照提示，选择生成密钥的存储位置和密钥的名称。一般情况下，会生成两个文件：id_rsa（私钥）和id_rsa.pub（公钥）。</p>
+<p><figure class="image-caption">
+    <img src="https://assets.b3logfile.com/siyuan/1671718195390/assets/image-20230803220012-j3hnsez.png" alt="image">
+    <figcaption>image</figcaption>
+</figure></p>
+<ol>
+<li><strong>将公钥上传到远程服务器</strong>：使用 SSH 将公钥上传到您希望登录的远程服务器上。假设您已经具有服务器的登录凭据，可以运行以下命令：</li>
+</ol>
+<pre tabindex="0"><code>ssh-copy-id user@remote_server
+</code></pre><p>请将 user 替换为您在远程服务器上的用户名，remote_server 替换为服务器的 IP 地址或域名。</p>
+<ol>
+<li><strong>测试 SSH 登录</strong>：现在尝试使用 SSH 登录到远程服务器，应该不再需要输入密码：</li>
+</ol>
+<pre tabindex="0"><code>ssh user@remote_server
+</code></pre><p>如果一切设置正确，您应该可以无需密码登录到远程服务器。</p>
+<ol>
+<li><strong>配置 iTerm2 使用 SSH 密钥</strong>：当您在 iTerm2 中使用 SSH 时，它会默认使用系统中的 SSH 设置。确保您的 iTerm2 使用的是正确的 SSH 密钥。</li>
+</ol>
+<p>现在您应该可以在 iTerm2 中无需每次输入密码登录 SSH 了。请注意，SSH 密钥提供了更高的安全性，因为它们避免了密码的传输。但请确保您的私钥（id_rsa）始终保存在安全的地方，并且不要与他人共享。</p>
+<p>‍</p>
+<p>‍</p>
  </content>
 
 <p>
@@ -550,99 +634,6 @@ The first day use static blog 2025/09/06" />
  
 <div class="toc">
 
-
-<nav class="toc-nav">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#the-first-day-use-static-blog-20250906">The first day use static blog 2025/09/06</a></li>
-  </ul>
-</nav>
-</nav>
-
-<script>
-    
-    document.addEventListener('DOMContentLoaded', function () {
-        const tocLinks = document.querySelectorAll('.toc-nav a');
-        const headings = Array.from(tocLinks).map(link => {
-            const id = link.getAttribute('href').replace('#', '');
-            return document.getElementById(id);
-        }).filter(h => h);
-
-        
-        tocLinks.forEach(link => {
-            link.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').replace('#', '');
-                const target = document.getElementById(targetId);
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-
-                    
-                    tocLinks.forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                }
-            });
-        });
-
-        
-        function updateActiveLink() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const windowHeight = window.innerHeight;
-
-            for (let i = headings.length - 1; i >= 0; i--) {
-                const heading = headings[i];
-                const rect = heading.getBoundingClientRect();
-
-                if (rect.top <= 100) {
-                    
-                    tocLinks.forEach(link => link.classList.remove('active'));
-                    
-                    
-                    const activeLink = document.querySelector(`.toc-nav a[href="#${heading.id}"]`);
-                    if (activeLink) {
-                        activeLink.classList.add('active');
-                        
-                        
-                        let currentLi = activeLink.closest('li');
-                        while (currentLi) {
-                            const parentLi = currentLi.parentElement.closest('li');
-                            if (parentLi) {
-                                const parentLink = parentLi.querySelector('a');
-                                if (parentLink) {
-                                    parentLink.classList.add('active');
-                                }
-                                currentLi = parentLi;
-                            } else {
-                                break;
-                            }
-                        }
-                    }
-                    break;
-                }
-            }
-        }
-
-        
-        let ticking = false;
-        function throttleScroll() {
-            if (!ticking) {
-                requestAnimationFrame(function () {
-                    updateActiveLink();
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        }
-
-        window.addEventListener('scroll', throttleScroll);
-
-        
-        updateActiveLink();
-    });
-</script>
 
 </div>
 
