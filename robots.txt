@@ -1,2 +1,2 @@
 User-Agent: *
-Sitemap: https://perinchiang.github.io/blog/sitemap.xml
+Sitemap: https://perinchiang.github.io/sitemap.xml

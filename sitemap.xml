@@ -2,28 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://perinchiang.github.io/blog/blog/</loc>
-    <lastmod>2025-03-31T17:39:07+00:00</lastmod>
-  </url><url>
     <loc>https://perinchiang.github.io/blog/</loc>
     <lastmod>2025-03-31T17:39:07+00:00</lastmod>
   </url><url>
-    <loc>https://perinchiang.github.io/blog/p/%E6%9C%80%E5%90%8E%E6%88%91%E9%80%89%E6%8B%A9%E4%BA%86%E7%9F%AE%E8%BD%B4%E6%9C%BA%E6%A2%B0%E9%94%AE%E7%9B%98%E7%9A%84%E5%85%A5%E5%9D%91%E4%B9%8B%E6%97%85/</loc>
+    <loc>https://perinchiang.github.io/</loc>
     <lastmod>2025-03-31T17:39:07+00:00</lastmod>
   </url><url>
-    <loc>https://perinchiang.github.io/blog/blog/markdown/</loc>
+    <loc>https://perinchiang.github.io/p/%E6%9C%80%E5%90%8E%E6%88%91%E9%80%89%E6%8B%A9%E4%BA%86%E7%9F%AE%E8%BD%B4%E6%9C%BA%E6%A2%B0%E9%94%AE%E7%9B%98%E7%9A%84%E5%85%A5%E5%9D%91%E4%B9%8B%E6%97%85/</loc>
+    <lastmod>2025-03-31T17:39:07+00:00</lastmod>
+  </url><url>
+    <loc>https://perinchiang.github.io/blog/markdown/</loc>
     <lastmod>2020-01-03T08:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://perinchiang.github.io/blog/p/markdown-syntax-guide/</loc>
+    <loc>https://perinchiang.github.io/p/markdown-syntax-guide/</loc>
     <lastmod>2020-01-03T08:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://perinchiang.github.io/blog/blog/syntax/</loc>
+    <loc>https://perinchiang.github.io/blog/syntax/</loc>
     <lastmod>2020-01-03T08:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://perinchiang.github.io/blog/p/</loc>
+    <loc>https://perinchiang.github.io/p/</loc>
   </url><url>
-    <loc>https://perinchiang.github.io/blog/bear/</loc>
+    <loc>https://perinchiang.github.io/bear/</loc>
   </url><url>
-    <loc>https://perinchiang.github.io/blog/hugo/</loc>
+    <loc>https://perinchiang.github.io/hugo/</loc>
   </url>
 </urlset>
