@@ -6,9 +6,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="shortcut icon" href="https://perinchiang.github.io/images/favicon.png" />
-<title>Hugo | Hugo Bear Neo</title>
-<meta name="title" content="Hugo" />
-<meta name="description" content="Moments
+<title>Moments | Hugo Bear Neo</title>
+<meta name="title" content="Moments" />
+<meta name="description" content="Love never dies
 The first day use static blog 2025/09/06" />
 <meta name="keywords" content="" />
 
@@ -17,8 +17,8 @@ The first day use static blog 2025/09/06" />
 
 <meta property="og:url" content="https://perinchiang.github.io/monents/">
   <meta property="og:site_name" content="Hugo Bear Neo">
-  <meta property="og:title" content="Hugo">
-  <meta property="og:description" content="Moments The first day use static blog 2025/09/06">
+  <meta property="og:title" content="Moments">
+  <meta property="og:description" content="Love never dies The first day use static blog 2025/09/06">
   <meta property="og:locale" content="en_US">
   <meta property="og:type" content="article">
     <meta property="og:image" content="https://perinchiang.github.io/images/share.png">
@@ -28,15 +28,15 @@ The first day use static blog 2025/09/06" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://perinchiang.github.io/images/share.png">
-  <meta name="twitter:title" content="Hugo">
-  <meta name="twitter:description" content="Moments The first day use static blog 2025/09/06">
+  <meta name="twitter:title" content="Moments">
+  <meta name="twitter:description" content="Love never dies The first day use static blog 2025/09/06">
 
 
 
 
-  <meta itemprop="name" content="Hugo">
-  <meta itemprop="description" content="Moments The first day use static blog 2025/09/06">
-  <meta itemprop="wordCount" content="8">
+  <meta itemprop="name" content="Moments">
+  <meta itemprop="description" content="Love never dies The first day use static blog 2025/09/06">
+  <meta itemprop="wordCount" content="10">
   <meta itemprop="image" content="https://perinchiang.github.io/images/share.png">
 <meta name="referrer" content="no-referrer-when-downgrade" />
 
@@ -421,9 +421,9 @@ The first day use static blog 2025/09/06" />
 </a>
 <nav><a href="/">Home</a>
 
-<a href="/book/">Books</a>
+<a href="/books/">Books</a>
 
-<a href="/monents/">Hugo</a>
+<a href="/monents/">Moments</a>
 
 
 <a href="/blog/">Blog</a>
@@ -433,8 +433,8 @@ The first day use static blog 2025/09/06" />
   <main>
  
 
-<content> <h1 id="moments">Moments</h1>
-<h1 id="the-first-day-use-static-blog-20250906">The first day use static blog 2025/09/06</h1>
+<content> <h1 id="love-never-dies">Love never dies</h1>
+<h2 id="the-first-day-use-static-blog-20250906">The first day use static blog 2025/09/06</h2>
  </content>
 
 <p>
@@ -550,6 +550,99 @@ The first day use static blog 2025/09/06" />
  
 <div class="toc">
 
+
+<nav class="toc-nav">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-first-day-use-static-blog-20250906">The first day use static blog 2025/09/06</a></li>
+  </ul>
+</nav>
+</nav>
+
+<script>
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        const tocLinks = document.querySelectorAll('.toc-nav a');
+        const headings = Array.from(tocLinks).map(link => {
+            const id = link.getAttribute('href').replace('#', '');
+            return document.getElementById(id);
+        }).filter(h => h);
+
+        
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').replace('#', '');
+                const target = document.getElementById(targetId);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+
+                    
+                    tocLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        
+        function updateActiveLink() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const windowHeight = window.innerHeight;
+
+            for (let i = headings.length - 1; i >= 0; i--) {
+                const heading = headings[i];
+                const rect = heading.getBoundingClientRect();
+
+                if (rect.top <= 100) {
+                    
+                    tocLinks.forEach(link => link.classList.remove('active'));
+                    
+                    
+                    const activeLink = document.querySelector(`.toc-nav a[href="#${heading.id}"]`);
+                    if (activeLink) {
+                        activeLink.classList.add('active');
+                        
+                        
+                        let currentLi = activeLink.closest('li');
+                        while (currentLi) {
+                            const parentLi = currentLi.parentElement.closest('li');
+                            if (parentLi) {
+                                const parentLink = parentLi.querySelector('a');
+                                if (parentLink) {
+                                    parentLink.classList.add('active');
+                                }
+                                currentLi = parentLi;
+                            } else {
+                                break;
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+
+        
+        let ticking = false;
+        function throttleScroll() {
+            if (!ticking) {
+                requestAnimationFrame(function () {
+                    updateActiveLink();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+
+        window.addEventListener('scroll', throttleScroll);
+
+        
+        updateActiveLink();
+    });
+</script>
 
 </div>
 
