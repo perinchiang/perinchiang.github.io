@@ -6,20 +6,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="shortcut icon" href="https://perinchiang.github.io/images/favicon.png" />
-<title>Blog2 | Hugo Bear Neo</title>
-<meta name="title" content="Blog2" />
-<meta name="description" content="A Hugo theme. ✨ Transplanted from Hugo Bear Blog. Based on ʕ•ᴥ•ʔ Bear Blog." />
-<meta name="keywords" content="markdown,syntax," />
+<title>Hugo | Hugo Bear Neo</title>
+<meta name="title" content="Hugo" />
+<meta name="description" content="Moments
+The first day use static blog 2025/09/06" />
+<meta name="keywords" content="" />
 
-<link rel="canonical" href="https://perinchiang.github.io/blog/">
+<link rel="canonical" href="https://perinchiang.github.io/monents/">
 
 
-<meta property="og:url" content="https://perinchiang.github.io/blog/">
+<meta property="og:url" content="https://perinchiang.github.io/monents/">
   <meta property="og:site_name" content="Hugo Bear Neo">
-  <meta property="og:title" content="Blog2">
-  <meta property="og:description" content="A Hugo theme. ✨ Transplanted from Hugo Bear Blog. Based on ʕ•ᴥ•ʔ Bear Blog.">
+  <meta property="og:title" content="Hugo">
+  <meta property="og:description" content="Moments The first day use static blog 2025/09/06">
   <meta property="og:locale" content="en_US">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="article">
     <meta property="og:image" content="https://perinchiang.github.io/images/share.png">
 
 
@@ -27,20 +28,18 @@
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://perinchiang.github.io/images/share.png">
-  <meta name="twitter:title" content="Blog2">
-  <meta name="twitter:description" content="A Hugo theme. ✨ Transplanted from Hugo Bear Blog. Based on ʕ•ᴥ•ʔ Bear Blog.">
+  <meta name="twitter:title" content="Hugo">
+  <meta name="twitter:description" content="Moments The first day use static blog 2025/09/06">
 
 
 
 
-  <meta itemprop="name" content="Blog2">
-  <meta itemprop="description" content="A Hugo theme. ✨ Transplanted from Hugo Bear Blog. Based on ʕ•ᴥ•ʔ Bear Blog.">
-  <meta itemprop="datePublished" content="2025-03-31T15:31:45+00:00">
-  <meta itemprop="dateModified" content="2025-03-31T17:39:07+00:00">
+  <meta itemprop="name" content="Hugo">
+  <meta itemprop="description" content="Moments The first day use static blog 2025/09/06">
+  <meta itemprop="wordCount" content="8">
   <meta itemprop="image" content="https://perinchiang.github.io/images/share.png">
 <meta name="referrer" content="no-referrer-when-downgrade" />
 
-  <link rel="alternate" type="application/rss+xml" href="https://perinchiang.github.io/blog/index.xml" title="Hugo Bear Neo" />
   <style>
    
   :root {
@@ -432,117 +431,129 @@
 </nav>
 </header>
   <main>
-<content>
+ 
+
+<content> <h1 id="moments">Moments</h1>
+<h1 id="the-first-day-use-static-blog-20250906">The first day use static blog 2025/09/06</h1>
+ </content>
+
+<p>
   
+</p>
+
+
+
+<div class="upvote-container">
+<small class="upvote">
+  <button class="upvote-btn" id="upvote-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
+    <polyline points="17 11 12 6 7 11"></polyline>
+    <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+    <span class="upvote-count" id="upvote-count">0</span>
+  </button>
+</small>
+</div>
+
+<script>
+  let hasUpvoted = false;
+  let upvoteBtn;
+  let upvoteCount;
+
   
-  <input id="search-input" type="text" placeholder="Search..." style="margin-top: 16px" />
-  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const slug = '';
+    upvoteBtn = document.getElementById('upvote-btn');
+    upvoteCount = document.getElementById('upvote-count');
+    getCount(slug);
+
     
-    document.addEventListener('DOMContentLoaded', function () {
-      
-      const searchInput = document.getElementById('search-input');
-      const posts = document.querySelectorAll('.blog-posts li');
-      const years = document.querySelectorAll('.blog-posts h3');
+    upvoteBtn.addEventListener('click', handleUpvote);
+  });
 
-      
-      function updateSearchResults(searchTerm) {
-        let visiblePosts = 0;
-        const displayedYears = new Set();
-        posts.forEach(function (post) {
-          const title = post.querySelector('a').textContent.toLowerCase();
-          const year = post.querySelector('time').getAttribute('datetime').split('-')[0];
-          if (title.includes(searchTerm)) {
-            post.style.display = '';
-            visiblePosts++;
-            displayedYears.add(year);
-          } else {
-            post.style.display = 'none';
-          }
-        });
+  
+  async function handleUpvote() {
+    if (hasUpvoted) {
+      console.log('You have already upvoted this post!');
+      return;
+    }
+    const slug = '';
 
-        
-        years.forEach(function (y) {
-          const year = y.textContent;
-          y.style.display = displayedYears.has(year) ? '' : 'none';
-        });
-        
+    
+    upvoteBtn.disabled = true;
+    
+    upvoteBtn.classList.add('upvoted');
+    
+    upvoteCount.innerText = parseInt(upvoteCount.innerText) + 1;
 
-        
-        const countText = `There ${visiblePosts <= 1 ? `is ${visiblePosts} piece.` : `are ${visiblePosts} pieces.`}`;
-        document.getElementById('post-count').innerHTML = countText;
-        
-      }
-
-      searchInput.addEventListener('input', function () {
-        updateSearchResults(this.value.toLowerCase().trim());
+    try {
+      const response = await fetch('hugo.perinchiang.workers.dev\/upvote', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ postId: slug, diff: 1 }),
       });
-    });
-  </script>
+
+      if (response.ok) {
+        console.log('Upvote successful!');
+        hasUpvoted = true;
+        await getCount(slug, 3);
+      } else {
+        console.log('Upvote failed!');
+      }
+    } catch (error) {
+      console.error('Error: ', error);
+    } finally {
+      upvoteBtn.disabled = false;
+    }
+  }
+
   
-  
-  
-  <p id="post-count">There  are 2 pieces. </p>
-  
-  <ul class="blog-posts">
-    
-    
-    
-    
-    
-    
-    <h3>2025</h3>
-    
-    
-    
-    <li>
-      <span class=" grouped ">
-        <i>
-          <time datetime='2025-03-31' pubdate>
-            
-            31 Mar.
-            
-          </time>
-        </i>
-      </span>
-      <a href="https://perinchiang.github.io/p/%E6%9C%80%E5%90%8E%E6%88%91%E9%80%89%E6%8B%A9%E4%BA%86%E7%9F%AE%E8%BD%B4%E6%9C%BA%E6%A2%B0%E9%94%AE%E7%9B%98%E7%9A%84%E5%85%A5%E5%9D%91%E4%B9%8B%E6%97%85/">最后我选择了矮轴——机械键盘的入坑之旅</a>
-    </li>
-    
-    
-    
-    
-    
-    
-    <h3>2020</h3>
-    
-    
-    
-    <li>
-      <span class=" grouped ">
-        <i>
-          <time datetime='2020-01-03' pubdate>
-            
-            03 Jan.
-            
-          </time>
-        </i>
-      </span>
-      <a href="https://perinchiang.github.io/p/markdown-syntax-guide/">Markdown Syntax Guide</a>
-    </li>
-    
-    
-  </ul>
-  
-  <small>
-    <div>
-      
-      <a href="https://perinchiang.github.io/blog/markdown/">#Markdown</a>&nbsp;
-      
-      <a href="https://perinchiang.github.io/blog/syntax/">#Syntax</a>&nbsp;
-      
-    </div>
-  </small>
-  
-</content>
+  async function getCount(slug, retryCount = 0) {
+    try {
+      const response = await fetch('hugo.perinchiang.workers.dev\/count?post=' + slug, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+
+      if (data.code === 0) {
+        const count = data.data.count;
+        upvoteCount.innerText = count;
+        hasUpvoted = data.data.hasUpvoted;
+        if (hasUpvoted) {
+          upvoteBtn.classList.add('upvoted');
+        } else {
+          upvoteBtn.classList.remove('upvoted');
+        }
+      } else {
+        console.error('Failed to get upvote count: ', data.msg);
+      }
+    } catch (error) {
+      console.error('Error: ', error);
+      if (retryCount > 0) {
+        setTimeout(() => {
+          getCount(slug, retryCount - 1);
+        }, 1000);
+      }
+    }
+  }
+</script>
+
+
+
+
+ 
+<div class="toc">
+
+
+</div>
+
+
 
   </main>
   <footer>
